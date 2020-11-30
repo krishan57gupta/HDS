@@ -84,6 +84,40 @@ def plot_genes_r2_phase_portrait_supp_hb(path, vlm, df, genes, figname):
   else:
     plt.savefig(path['save']+"hb_phase_portrait.pdf", bbox_inches='tight', dpi=600)
 
+def violin_plotting(path,r2,mis):
+	da=[]
+	lab=[]
+	celltype = r2.columns
+	for ct in celltype:
+	    # print(ct)
+	    x=r2.loc[:,ct]
+	    x=np.sort(x)
+	    x=x[int(len(x)*.5):-1]
+	    da.extend(x)
+	    y=[ct]*len(x)
+	    lab.extend(y)
+	df=pd.DataFrame({"data":da,"lab":lab})
+	############################################################
+	# get mis matrix 
+	da=[]
+	lab=[]
+	for ct in celltype:
+	    # print(ct)
+	    x=mis.loc[:,ct]
+	    x=np.sort(x)
+	    x=x[int(len(x)*0):-1]
+	    da.extend(x)
+	    y=[ct]*len(x)
+	    lab.extend(y)
+	df1=pd.DataFrame({"data":da,"lab":lab})
+	plt.subplot(2,2,1)
+	a=sns.violinplot(x="lab", y="data", data=df)
+	a.set_xticklabels(a.get_xticklabels(),rotation=30)
+	plt.subplot(2,2,2)
+	b=sns.violinplot(x="lab", y="data", data=df1)
+	b.set_xticklabels(b.get_xticklabels(),rotation=30)
+	plt.savefig(path['save']+"violin_plot.pdf", bbox_inches='tight', dpi=600)
+
 """def count_genes():
 	sigi = pd.read_csv(path["sigi"], index_col=0)
 	sigd = pd.read_csv(path["sigd"], index_col=0)
@@ -104,10 +138,10 @@ def plot_genes_r2_phase_portrait_supp_hb(path, vlm, df, genes, figname):
 	sns.catplot(x='Genes', y='Count', data=df, kind='bar', palette='viridis', height=4, aspect=0.7)
 	plt.savefig(path['save']+'fig_C.pdf', bbox_inches='tight', dpi=600)"""
 		
-def r2_cut(path, r_c, r2):
+"""def r2_cut(path, r_c, r2):
 	leidens = [int(i) for i in r2.columns]
 	count = (r2<r_c).sum(0).values
-	print(count)
+	# print(count)
 	fig = plt.figure()
 	ax = fig.add_subplot(1,1,1)
 	plt.plot(leidens, count, "o-", c='crimson')
@@ -115,7 +149,7 @@ def r2_cut(path, r_c, r2):
 	ax.spines['top'].set_visible(False)
 	plt.xlabel('leidens')
 	plt.ylabel('Gene count')
-	plt.savefig(path['save']+'fig_B.pdf', bbox_inches='tight', dpi=600)
+	plt.savefig(path['save']+'fig_B.pdf', bbox_inches='tight', dpi=600)"""
 
 """def getting_cor(r2,pv,co):
 	# find spearman correlation and associated 2 tailed p-value
@@ -189,14 +223,13 @@ def fitting_gamma(adata,path):
 	bdata=bdata[adata.obs.index,]
 	bdata.obs['leiden']=adata.obs['leiden']
 	bdata.write_loom(path['loom'])
-
 	vlm = vcy.VelocytoLoom(path["loom"])
 	# gene filtering 
 	vlm.score_detection_levels(min_cells_express=20, min_expr_counts=50)
 	vlm.filter_genes(by_detection_levels=True)
 	vlm.score_detection_levels(min_expr_counts=0, min_cells_express=0, min_expr_counts_U=25, min_cells_express_U=20)
 	vlm.filter_genes(by_detection_levels=True)
-	print(vlm.S.shape)
+	# print(vlm.S.shape)
 
 	# size normalization
 	vlm._normalize_S(relative_size=vlm.initial_cell_size, target_size=np.median(vlm.initial_cell_size))
@@ -205,7 +238,7 @@ def fitting_gamma(adata,path):
 	# PCA
 	vlm.perform_PCA()
 	pcn = vlm.S.shape[0]
-	plt.plot(np.cumsum(vlm.pca.explained_variance_ratio_)[:100])
+	# plt.plot(np.cumsum(vlm.pca.explained_variance_ratio_)[:100])
 	n_comps = np.where(np.diff(np.diff(np.cumsum(vlm.pca.explained_variance_ratio_))>0.002))[0][0]
 	plt.axvline(n_comps, c="k")
 	print("n_comps", n_comps)
@@ -223,6 +256,7 @@ def fitting_gamma(adata,path):
 	vlm.calculate_velocity()
 	vlm.calculate_shift(assumption="constant_velocity")
 	vlm.extrapolate_cell_at_t(delta_t=1.,)
+	print("velocity Done!")
 	return vlm
 
 def clusters(adata, min_genes, min_cells, n_genes_by_counts, pct_counts_mt, resolution):
@@ -230,15 +264,14 @@ def clusters(adata, min_genes, min_cells, n_genes_by_counts, pct_counts_mt, reso
 	scp.logging.print_header()
 	scp.settings.set_figure_params(dpi=80, facecolor='white')
 	print(adata)
-	print(type(adata))
+	# print(type(adata))
 	adata.var_names_make_unique()
 	scp.pp.filter_cells(adata, min_genes=200)
 	scp.pp.filter_genes(adata, min_cells=3) 
 	adata.var['mt'] = adata.var_names.str.startswith('MT-')
 	scp.pp.calculate_qc_metrics(adata, qc_vars=['mt'], percent_top=None, log1p=False, inplace=True)
-	scp.pl.violin(adata, ['n_genes_by_counts', 'total_counts'],
-             jitter=0.4, multi_panel=True)
-	scp.pl.scatter(adata, x='total_counts', y='n_genes_by_counts')
+	# scp.pl.violin(adata, ['n_genes_by_counts', 'total_counts'],jitter=0.4, multi_panel=True)
+	# scp.pl.scatter(adata, x='total_counts', y='n_genes_by_counts')
 	adata = adata[adata.obs.n_genes_by_counts < 2500, :]
 	adata = adata[adata.obs.pct_counts_mt < 5, :]
 	adata.obs['CellID'] = adata.obs.index
@@ -253,15 +286,17 @@ def clusters(adata, min_genes, min_cells, n_genes_by_counts, pct_counts_mt, reso
 	scp.pp.regress_out(adata, ['total_counts', 'pct_counts_mt'])
 	scp.pp.scale(adata, max_value=10)
 	scp.tl.pca(adata, svd_solver='arpack')
-	scp.pl.pca(adata)
-	scp.pl.pca_variance_ratio(adata, log=True)
+	# scp.pl.pca(adata)
+	# scp.pl.pca_variance_ratio(adata, log=True)
 	scp.pp.neighbors(adata, n_neighbors=10, n_pcs=40)
 	scp.tl.umap(adata)
 	scp.tl.leiden(adata,resolution=resolution)
 	scp.pl.umap(adata, color=['leiden'])
 	return adata
 
-def HDS(path1=None, cluster_file=None, genes=None, pv=0.025, co=.9, r_c=0, min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5, resolution=1):
+def HDS(path1=None, cluster_file=None, genes=None, 
+# pv=0.025, co=.9, r_c=0, 
+min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5, resolution=1):
     # path variables
     path = {}
     path['path']=path1
@@ -287,8 +322,9 @@ def HDS(path1=None, cluster_file=None, genes=None, pv=0.025, co=.9, r_c=0, min_g
     leiden = np.unique(vlm.ca['leiden'])
     r2 = r2_feature_wise(path, vlm, feature='leiden',m="r2")
     mis = r2_feature_wise(path, vlm, feature='leiden',m="mis")
+    violin_plotting(path,r2,mis)
     # getting_cor(r2,pv=0.025,co=.9)
-    r2_cut(path, r_c, r2)
+    # r2_cut(path, r_c, r2)
     # count_genes()
     # sigi = pd.read_csv(path["sigi"], index_col=0)
     # sigd = pd.read_csv(path["sigd"], index_col=0)
