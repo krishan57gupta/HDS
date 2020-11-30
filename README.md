@@ -2,7 +2,7 @@
 
 Age-dependent dysregulation of transcription regulatory machinery triggers modulations in the gene expression levels leading to the decline in cellular fitness. Tracking of these transcripts along the temporal axis in multiple species revealed a spectrum of evolutionarily conserved pathways, such as electron transport chain, translation regulation, DNA repair, etc. Recent shreds of evidence suggest that aging deteriorates the transcription machinery itself, indicating the hidden complexity of the aging transcriptomes. This reinforces the need for devising novel computational methods to view aging through the lens of transcriptomics. Here, we present Homeostatic Divergence Score (HDS) to quantify the extent of messenger RNA (mRNA) homeostasis by assessing the balance between spliced and unspliced mRNA repertoire in single cells. By tracking HDS across single-cell expression profiles of human pancreas we identified a core set of 171 transcripts undergoing an age-dependent homeostatic breakdown. Notably, many of these transcripts are well-studied in the context of organismal aging. Our preliminary analyses in this direction suggest that mRNA processing level information offered by single-cell RNA sequencing (scRNA-seq) data is a superior determinant of chronological age as compared to transcriptional noise.
 
-# Instruction
+# Instructions
 
 ## How to install?
 1. These are are required packages: 
@@ -28,7 +28,8 @@ Age-dependent dysregulation of transcription regulatory machinery triggers modul
    min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5
    
 ## Expected outcome?
-1. ::image  
+1. ![alt text](https://github.com/krishan57gupta/HDS/images/violin_plot.png?raw=true)
+2. ![alt text](https://github.com/krishan57gupta/HDS/images/HDS.png?raw=true)
 
 
 
