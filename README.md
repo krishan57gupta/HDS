@@ -30,7 +30,7 @@ Age-dependent dysregulation of transcription regulatory machinery triggers modul
 ## Expected outcome?
 ### Rsquare and mutual information score
 ![Rsquare and mutual information score](https://github.com/krishan57gupta/HDS/blob/main/images/violin_plot.png?raw=true)
-### portrait of rhomeostatis genes
+### Portrait of homeostatis genes
 ![portrait of rhomeostatis genes](https://github.com/krishan57gupta/HDS/blob/main/images/HDS.png?raw=true)
 
 
