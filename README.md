@@ -28,9 +28,9 @@ Age-dependent dysregulation of transcription regulatory machinery triggers modul
    min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5
    
 ## Expected outcome?
-1. 
+### Rsquare and mutual information score
 ![Rsquare and mutual information score](https://github.com/krishan57gupta/HDS/blob/main/images/violin_plot.png)
-2. 
+### portrait of rhomeostatis genes
 ![portrait of rhomeostatis genes](https://github.com/krishan57gupta/HDS/blob/main/images/HDS.png?raw=true)
 
 
