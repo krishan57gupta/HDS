@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="HDS-krishang", # Replace with your own username
-    version="0.0.14",
+    version="0.0.16",
     author="Krishan Gupta, Sidrah Maryam",
     author_email="krishang@iiitd.ac.in",
     description="Decline in transcriptional homeostasis defines aging",

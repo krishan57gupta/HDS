@@ -56,7 +56,7 @@ def plot_genes_r2_phase_portrait_supp_hb(path, vlm, df, genes, figname):
       # plt.xlabel("s", fontsize=11)
       ax.spines['right'].set_visible(False)
       ax.spines['top'].set_visible(False)
-      plt.title(f'leiden {d}', loc='center')
+      plt.title(f'cluster {d}', loc='center')
       k+=1
       c+=1
 
@@ -73,7 +73,7 @@ def plot_genes_r2_phase_portrait_supp_hb(path, vlm, df, genes, figname):
     ax.invert_yaxis()
     # plt.xlim(np.min(sigd.iloc[idx,:-2])-0.5, 1.5)
     # plt.xticks(ticks=[-5,-3,0,1], label=[-5,-3,0,1])
-    plt.ylabel("leiden")
+    plt.ylabel("clusters")
     plt.xlabel("R2")
     plt.title(g, loc='center')
 
@@ -110,11 +110,17 @@ def violin_plotting(path,r2,mis):
 	    y=[ct]*len(x)
 	    lab.extend(y)
 	df1=pd.DataFrame({"data":da,"lab":lab})
-	plt.subplot(2,2,1)
+	plt.subplot(2,2,1,position=[0,0,2,1])
 	a=sns.violinplot(x="lab", y="data", data=df)
+	plt.title("Clusters with Rsquared")
+	plt.ylabel("Rsquared Score")
+	plt.xlabel("clusters")
 	a.set_xticklabels(a.get_xticklabels(),rotation=30)
-	plt.subplot(2,2,2)
+	plt.subplot(2,2,2,position=[2.25,0,2,1])
 	b=sns.violinplot(x="lab", y="data", data=df1)
+	plt.title("Clusters with Mutual Information")
+	plt.ylabel("Mutual Information Score")
+	plt.xlabel("clusters")
 	b.set_xticklabels(b.get_xticklabels(),rotation=30)
 	plt.savefig(path['save']+"violin_plot.pdf", bbox_inches='tight', dpi=600)
 
@@ -259,7 +265,7 @@ def fitting_gamma(adata,path):
 	print("velocity Done!")
 	return vlm
 
-def clusters(adata, min_genes, min_cells, n_genes_by_counts, pct_counts_mt, resolution):
+def clustering(adata, min_genes, min_cells, n_genes_by_counts, pct_counts_mt, resolution):
 	scp.settings.verbosity = 3
 	scp.logging.print_header()
 	scp.settings.set_figure_params(dpi=80, facecolor='white')
@@ -294,7 +300,7 @@ def clusters(adata, min_genes, min_cells, n_genes_by_counts, pct_counts_mt, reso
 	scp.pl.umap(adata, color=['leiden'])
 	return adata
 
-def HDS(path1=None, cluster_file=None, genes=None, 
+def HDS(path1=None, clusters=None, genes=None, 
 # pv=0.025, co=.9, r_c=0, 
 min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5, resolution=1):
     # path variables
@@ -304,10 +310,10 @@ min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5, resolution=
     if not os.path.exists(os.getcwd()+'/'+'loom_data'):
       os.mkdir(root)
     adata = scp.read_loom(path['path'], sparse=False, X_name='spliced')
-    if not cluster_file:
-      adata=clusters(adata, min_genes, min_cells, n_genes_by_counts,pct_counts_mt, resolution)
+    if not clusters:
+      adata=clustering(adata, min_genes, min_cells, n_genes_by_counts,pct_counts_mt, resolution)
     else:
-      adata.obs['leiden']=cluster_file
+      adata.obs['leiden']=clusters
     path["loom"] = root+ "/temp.loom"
     path["metadata"] = root+"/metadata.csv"
     path["sigi"] = root+"/significant_restoration_genes_across_all_cells.csv"
