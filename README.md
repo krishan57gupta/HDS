@@ -32,7 +32,9 @@ Age-dependent dysregulation of transcription regulatory machinery triggers modul
    	
 	cellranger count --id=$sample --transcriptome=$transcriptome --fastqs=/sample.fastqs --sample=$sample --expect-cells=8000 --localcores=12
    	
-	Download transcriptome from https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest
+	Download transcriptome from the link given below:
+
+	https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest
 
 3. 'STAR' tool can also be used for alignment to reference genome and generate bam file.
    
@@ -41,7 +43,9 @@ Age-dependent dysregulation of transcription regulatory machinery triggers modul
 	STAR --runThreadN 12 --genomeDir /star_mouse/index --sjdbGTFfile /gencode.vM25.primary_assembly.annotation.gtf --readFilesIn $line1.fastq.gz $line2.fastq.gz --outFileNamePrefix $line.bam --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate
 	
    1. Create star index using standard parameters
-   2. Download gtf file from the link https://www.gencodegenes.org/human
+   2. Download gtf file from the link given below:
+
+	https://www.gencodegenes.org/human
 
 4. Generate the loom file using velocyto command.
    
@@ -51,8 +55,14 @@ Age-dependent dysregulation of transcription regulatory machinery triggers modul
    
 	velocyto run10x -m hg19_rmsk.gtf sample_folder/01 refdata-gex-GRCh38-2020-A/genes/genes.gtf
 
-   1. Download gtf file from link: https://www.gencodegenes.org/human/
-   2. Download mask file from link: https://genome.ucsc.edu/cgi-bin/hgTables?hgsid=611454127_NtvlaW6xBSIRYJEBI0iRDEWisITa&clade=mammal&org=Human&db=0&hgta_group=allTracks&hgta_track=rmsk&hgta_table=rmsk&hgta_regionType=genome&position=&hgta_outputType=gff&hgta_outFileName=mm10_rmsk.gtf
+   1. Download gtf file from the link given below: 
+
+	https://www.gencodegenes.org/human/
+
+   2. Download mask file from the link given below: 
+
+	https://genome.ucsc.edu/cgi-bin/hgTables?hgsid=611454127_NtvlaW6xBSIRYJEBI0iRDEWisITa&clade=mammal&org=Human&db=0&hgta_group=allTracks&hgta_track=rmsk&hgta_table=rmsk&hgta_regionType=genome&position=&hgta_outputType=gff&hgta_outFileName=mm10_rmsk.gtf
+
    3. For STAR generated bam files, use the command written below:
     
 	velocyto run -b filtered_barcodes.tsv -o output_path -m repeat_msk_srt.gtf possorted_genome_bam.bam mm10_annotation.gtf
