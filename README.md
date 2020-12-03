@@ -14,51 +14,77 @@ Age-dependent dysregulation of transcription regulatory machinery triggers modul
 	!pip install scipy numpy pandas velocyto scanpy anndata matplotlib seaborn matplotlib_venn leidenalg scikit-learn
 
 3. Get latest version of HDS from the link given below:
-   	https://test.pypi.org/project/HDS-krishang
+   	
+	https://test.pypi.org/project/HDS-krishang
 
 4. Install it using below command.
-   	pip install -i https://test.pypi.org/simple/ HDS-krishang
+   	
+	pip install -i https://test.pypi.org/simple/ HDS-krishang
 
 ## How to make loom files from fastq files?
 1. Download fastq files from the link given below:
-   https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-6687/samples/
+   
+	https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-6687/samples/
    
 2. For 10x fastq files, use the 'cellranger count' command to generate bam file.
-   For example: 
-   cellranger count --id=$sample --transcriptome=$transcriptome --fastqs=/sample.fastqs --sample=$sample --expect-cells=8000 --localcores=12
-   Download transcriptome from https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest
+   
+	For example: 
+   	
+	cellranger count --id=$sample --transcriptome=$transcriptome --fastqs=/sample.fastqs --sample=$sample --expect-cells=8000 --localcores=12
+   	
+	Download transcriptome from https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest
 
 3. 'STAR' tool can also be used for alignment to reference genome and generate bam file.
-   For example:
-   STAR --runThreadN 12 --genomeDir /star_mouse/index --sjdbGTFfile /gencode.vM25.primary_assembly.annotation.gtf --readFilesIn $line1.fastq.gz $line2.fastq.gz --outFileNamePrefix $line.bam --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate
+   
+	For example:
+   
+	STAR --runThreadN 12 --genomeDir /star_mouse/index --sjdbGTFfile /gencode.vM25.primary_assembly.annotation.gtf --readFilesIn $line1.fastq.gz $line2.fastq.gz --outFileNamePrefix $line.bam --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate
+	
    1. Create star index using standard parameters
    2. Download gtf file from the link https://www.gencodegenes.org/human
 
 4. Generate the loom file using velocyto command.
-   For example:
-   For 10x data, use the command written below:
-   velocyto run10x -m hg19_rmsk.gtf sample_folder/01 refdata-gex-GRCh38-2020-A/genes/genes.gtf
+   
+	For example:
+   
+	For 10x data, use the command written below:
+   
+	velocyto run10x -m hg19_rmsk.gtf sample_folder/01 refdata-gex-GRCh38-2020-A/genes/genes.gtf
+
    1. Download gtf file from link: https://www.gencodegenes.org/human/
    2. Download mask file from link: https://genome.ucsc.edu/cgi-bin/hgTables?hgsid=611454127_NtvlaW6xBSIRYJEBI0iRDEWisITa&clade=mammal&org=Human&db=0&hgta_group=allTracks&hgta_track=rmsk&hgta_table=rmsk&hgta_regionType=genome&position=&hgta_outputType=gff&hgta_outFileName=mm10_rmsk.gtf
    3. For STAR generated bam files, use the command written below:
-    velocyto run -b filtered_barcodes.tsv -o output_path -m repeat_msk_srt.gtf possorted_genome_bam.bam mm10_annotation.gtf
+    
+	velocyto run -b filtered_barcodes.tsv -o output_path -m repeat_msk_srt.gtf possorted_genome_bam.bam mm10_annotation.gtf
 
 ## How to use?
 1. from HDS import HDS
+   
    HDS("path of loom file") 
-   For example: HDS("/home/krishan/loom/abc.loom")
-2. Use 'clusters' parameter to pass cell's clusters if you have. By default  HDS uses 'leiden' method with
-   resolution = 1, inbuilt in scanpy package. Note: clusters labels should be in the same order as barcode in the
-   loom file.
-   For example:
-   HDS(path1="path of loom file", clusters=[1,2,1,2,3,4,5])
+   
+   For example: 
+
+   HDS("/home/krishan/loom/abc.loom")
+
+2. Use 'clusters' parameter to pass cell's clusters if you have. By default  HDS uses 'leiden' method with resolution = 1, inbuilt in scanpy package. Note: clusters labels should be in the same order as barcode in theloom file.
+
+	For example:
+   	
+	HDS(path1="path of loom file", clusters=[1,2,1,2,3,4,5])
+
 3. Use 'genes' parameter to pass speific genes.
-   For example:
-   HDS(path1="path of loom file", genes=['Fos','Fosl1'])
+   
+	For example:
+   
+	HDS(path1="path of loom file", genes=['Fos','Fosl1'])
+
 4. For other parameters default values are:
-   min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5
-5. We have created a [google colab](https://colab.research.google.com/drive/138HaACR90z_ELCPAm2DbTPHccH0G26Ov?usp=sharing) with the code and loom file. Link is given below:
-   https://drive.google.com/drive/folders/1Pq9IsjnCYaJngU8WQ0E1RjIqA9f-j3lY?usp=sharing
+   
+	min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5
+
+5. We have created a [google colab](https://colab.research.google.com/drive/1stwD9-uWoQIkGtEA0gLke2iq8Ioee7J4?usp=sharing) with the code and loom file(1000 cells). Link is given below:
+   
+	https://drive.google.com/drive/folders/1Pq9IsjnCYaJngU8WQ0E1RjIqA9f-j3lY?usp=sharing
    
 ## Output?
 ### Clusters with Rsquared and Mutual Information scores
