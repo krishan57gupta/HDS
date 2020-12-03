@@ -110,10 +110,12 @@ def violin_plotting(path,r2,mis):
 	    y=[ct]*len(x)
 	    lab.extend(y)
 	df1=pd.DataFrame({"data":da,"lab":lab})
-	plt.subplot(2,2,1)
+	plt.subplot(2,2,1,position=[0,0,1,1])
+	plt.title("Rsquared Score")
 	a=sns.violinplot(x="lab", y="data", data=df)
 	a.set_xticklabels(a.get_xticklabels(),rotation=30)
-	plt.subplot(2,2,2)
+	plt.subplot(2,2,2,position=[1.1,0,1,1])
+	plt.title("Mutual Information Score")
 	b=sns.violinplot(x="lab", y="data", data=df1)
 	b.set_xticklabels(b.get_xticklabels(),rotation=30)
 	plt.savefig(path['save']+"violin_plot.pdf", bbox_inches='tight', dpi=600)
@@ -294,7 +296,7 @@ def clusters(adata, min_genes, min_cells, n_genes_by_counts, pct_counts_mt, reso
 	scp.pl.umap(adata, color=['leiden'])
 	return adata
 
-def HDS(path1=None, cluster_file=None, genes=None, 
+def HDS(path1=None, clusters=None, genes=None, 
 # pv=0.025, co=.9, r_c=0, 
 min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5, resolution=1):
     # path variables
@@ -304,10 +306,10 @@ min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5, resolution=
     if not os.path.exists(os.getcwd()+'/'+'loom_data'):
       os.mkdir(root)
     adata = scp.read_loom(path['path'], sparse=False, X_name='spliced')
-    if not cluster_file:
+    if not clusters:
       adata=clusters(adata, min_genes, min_cells, n_genes_by_counts,pct_counts_mt, resolution)
     else:
-      adata.obs['leiden']=cluster_file
+      adata.obs['leiden']=clusters
     path["loom"] = root+ "/temp.loom"
     path["metadata"] = root+"/metadata.csv"
     path["sigi"] = root+"/significant_restoration_genes_across_all_cells.csv"
