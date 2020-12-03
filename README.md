@@ -6,16 +6,18 @@ Age-dependent dysregulation of transcription regulatory machinery triggers modul
 
 ## How to install?
 1. These are are required packages: 
-   scipy, numpy, pandas, velocyto, scanpy, anndata, matplotlib, seaborn matplotlib_venn, leidenalg and scikit-learn
+   
+	scipy, numpy, pandas, velocyto, scanpy, anndata, matplotlib, seaborn matplotlib_venn, leidenalg and scikit-learn
 
 2. To install these packages use below command
-   !pip install scipy numpy pandas velocyto scanpy anndata matplotlib seaborn matplotlib_venn leidenalg scikit-learn
+   	
+	!pip install scipy numpy pandas velocyto scanpy anndata matplotlib seaborn matplotlib_venn leidenalg scikit-learn
 
 3. Get latest version of HDS from the link given below:
-   https://test.pypi.org/project/HDS-krishang
+   	https://test.pypi.org/project/HDS-krishang
 
 4. Install it using below command.
-   pip install -i https://test.pypi.org/simple/ HDS-krishang
+   	pip install -i https://test.pypi.org/simple/ HDS-krishang
 
 ## How to make loom files from fastq files?
 1. Download fastq files from the link given below:
