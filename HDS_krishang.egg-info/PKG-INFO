@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: HDS-krishang
-Version: 0.0.16
+Version: 0.0.18
 Summary: Decline in transcriptional homeostasis defines aging
 Home-page: https://github.com/krishan5gupta/HDS
 Author: Krishan Gupta, Sidrah Maryam
@@ -106,8 +106,8 @@ Description: # HDS Package
            
         ## Output?
         ### Clusters with Rsquared and Mutual Information scores
-        ![Rsquare and mutual information score](https://github.com/krishan57gupta/HDS/blob/main/images/violin_plot.png?raw=true)
-        ### Phase portrait of genes under ageing homoestasis break down
+        ![Rsquare and mutual information score](https://github.com/krishan57gupta/HDS/blob/main/images/violin.png?raw=true)
+        ### Phase portrait of genes under homeostasis break down
         ![portrait of rhomeostatis genes](https://github.com/krishan57gupta/HDS/blob/main/images/HDS.png?raw=true)
         
 Platform: UNKNOWN

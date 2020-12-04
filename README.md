@@ -99,5 +99,5 @@ Age-dependent dysregulation of transcription regulatory machinery triggers modul
 ## Output?
 ### Clusters with Rsquared and Mutual Information scores
 ![Rsquare and mutual information score](https://github.com/krishan57gupta/HDS/blob/main/images/violin.png?raw=true)
-### Phase portrait of genes under homoestasis break down
+### Phase portrait of genes under homeostasis break down
 ![portrait of rhomeostatis genes](https://github.com/krishan57gupta/HDS/blob/main/images/HDS.png?raw=true)
