@@ -92,7 +92,7 @@ Age-dependent dysregulation of transcription regulatory machinery triggers modul
    
 	min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5
 
-5. We have created a [google colab](https://colab.research.google.com/drive/1stwD9-uWoQIkGtEA0gLke2iq8Ioee7J4?usp=sharing) with the code and loom file(1000 cells). Link is given below:
+5. We have created a [google colab](https://colab.research.google.com/drive/1stwD9-uWoQIkGtEA0gLke2iq8Ioee7J4?usp=sharing) with the code and loom file. Link is given below:
    
 	https://drive.google.com/drive/folders/1Pq9IsjnCYaJngU8WQ0E1RjIqA9f-j3lY?usp=sharing
    
