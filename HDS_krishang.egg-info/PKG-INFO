@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: HDS-krishang
-Version: 0.0.19
+Version: 0.0.23
 Summary: Decline in transcriptional homeostasis defines aging
 Home-page: https://github.com/krishan5gupta/HDS
 Author: Krishan Gupta, Sidrah Maryam
@@ -84,29 +84,31 @@ Description: # HDS Package
         
            HDS("/home/krishan/loom/abc.loom")
         
-        2. Use 'clusters' parameter to pass cell's clusters if you have. By default  HDS uses 'leiden' method with resolution = 1, inbuilt in scanpy package. Note: clusters labels should be in the same order as barcode in theloom file.
+        2. Use 'clusters' parameter to pass cell's clusters if you have. By default  HDS uses 'leiden' method with resolution = 1, inbuilt in scanpy package. Note: clusters labels should be in the same order as barcode in the loom file.
         
         	For example:
            	
         	HDS(path1="path of loom file", clusters=[1,2,1,2,3,4,5])
         
-        3. Use 'genes' parameter to pass speific genes.
+        3. Use 'per' parameter to filter-out top per percentage genes in each cluster, for ploting violin plot.
+        
+        4. Use 'genes' parameter to pass speific genes.
            
         	For example:
            
         	HDS(path1="path of loom file", genes=['Fos','Fosl1'])
         
-        4. For other parameters default values are:
+        5. For other parameters default values are:
            
         	min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5
         
-        5. We have created a [google colab](https://colab.research.google.com/drive/1stwD9-uWoQIkGtEA0gLke2iq8Ioee7J4?usp=sharing) with the code and loom file. Link is given below:
+        6. We have created a [google colab](https://colab.research.google.com/drive/1stwD9-uWoQIkGtEA0gLke2iq8Ioee7J4?usp=sharing) with the code and loom file. Link is given below:
            
         	https://drive.google.com/drive/folders/1Pq9IsjnCYaJngU8WQ0E1RjIqA9f-j3lY?usp=sharing
            
         ## Output?
-        ### Clusters with Rsquared and Mutual Information scores
-        ![Rsquare and mutual information score](https://github.com/krishan57gupta/HDS/blob/main/images/violin.png?raw=true)
+        ### Clusters with Rsquared
+        ![Rsquared](https://github.com/krishan57gupta/HDS/blob/main/images/violin.png?raw=true)
         ### Phase portrait of genes under homeostasis break down
         ![portrait of rhomeostatis genes](https://github.com/krishan57gupta/HDS/blob/main/images/HDS.png?raw=true)
         

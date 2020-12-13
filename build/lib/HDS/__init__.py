@@ -84,7 +84,7 @@ def plot_genes_r2_phase_portrait_supp_hb(path, vlm, df, genes, figname):
   else:
     plt.savefig(path['save']+"hb_phase_portrait.pdf", bbox_inches='tight', dpi=600)
 
-def violin_plotting(path,r2,mis):
+def violin_plotting(path,r2,per=.1):
 	da=[]
 	lab=[]
 	celltype = r2.columns
@@ -92,14 +92,14 @@ def violin_plotting(path,r2,mis):
 	    # print(ct)
 	    x=r2.loc[:,ct]
 	    x=np.sort(x)
-	    x=x[int(len(x)*.5):-1]
+	    x=x[int(len(x)*(1-per)):-1]
 	    da.extend(x)
 	    y=[ct]*len(x)
 	    lab.extend(y)
 	df=pd.DataFrame({"data":da,"lab":lab})
 	############################################################
 	# get mis matrix 
-	da=[]
+	"""da=[]
 	lab=[]
 	for ct in celltype:
 	    # print(ct)
@@ -109,20 +109,20 @@ def violin_plotting(path,r2,mis):
 	    da.extend(x)
 	    y=[ct]*len(x)
 	    lab.extend(y)
-	df1=pd.DataFrame({"data":da,"lab":lab})
-	plt.subplot(2,2,1,position=[0,0,2,1])
+	df1=pd.DataFrame({"data":da,"lab":lab})"""
+	plt.subplot(1,1,1,position=[0,0,3,1])
 	a=sns.violinplot(x="lab", y="data", data=df)
 	plt.title("Clusters with Rsquared")
 	plt.ylabel("Rsquared Score")
 	plt.xlabel("clusters")
 	a.set_xticklabels(a.get_xticklabels(),rotation=30)
-	plt.subplot(2,2,2,position=[2.25,0,2,1])
+	"""plt.subplot(2,2,2,position=[2.25,0,2,1])
 	b=sns.violinplot(x="lab", y="data", data=df1)
 	plt.title("Clusters with Mutual Information")
 	plt.ylabel("Mutual Information Score")
 	plt.xlabel("clusters")
 	b.set_xticklabels(b.get_xticklabels(),rotation=30)
-	plt.savefig(path['save']+"violin_plot.pdf", bbox_inches='tight', dpi=600)
+	plt.savefig(path['save']+"violin_plot.pdf", bbox_inches='tight', dpi=600)"""
 
 """def count_genes():
 	sigi = pd.read_csv(path["sigi"], index_col=0)
@@ -300,7 +300,7 @@ def clustering(adata, min_genes, min_cells, n_genes_by_counts, pct_counts_mt, re
 	scp.pl.umap(adata, color=['leiden'])
 	return adata
 
-def HDS(path1=None, clusters=None, genes=None, 
+def HDS(path1=None, clusters=None, genes=None, per=.1,
 # pv=0.025, co=.9, r_c=0, 
 min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5, resolution=1):
     # path variables
@@ -327,8 +327,8 @@ min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5, resolution=
     # compute r-squared leiden wise
     leiden = np.unique(vlm.ca['leiden'])
     r2 = r2_feature_wise(path, vlm, feature='leiden',m="r2")
-    mis = r2_feature_wise(path, vlm, feature='leiden',m="mis")
-    violin_plotting(path,r2,mis)
+    # mis = r2_feature_wise(path, vlm, feature='leiden',m="mis")
+    violin_plotting(path,r2,per=per)
     # getting_cor(r2,pv=0.025,co=.9)
     # r2_cut(path, r_c, r2)
     # count_genes()
@@ -347,3 +347,4 @@ min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5, resolution=
       plot_genes_r2_phase_portrait_supp_hb(path, vlm, sigi, genes, figname=True)
       genes=sigd.index[:5]
       plot_genes_r2_phase_portrait_supp_hb(path, vlm, sigd, genes, figname=True)"""
+    return r2
