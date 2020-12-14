@@ -99,7 +99,9 @@ Age-dependent dysregulation of transcription regulatory machinery triggers modul
 	https://drive.google.com/drive/folders/1Pq9IsjnCYaJngU8WQ0E1RjIqA9f-j3lY?usp=sharing
    
 ## Output?
+### HDS function will return a pandas data frame cantaining Rsquared score of genes for all clusters.
+![Rsquared (pandas data frame)](https://github.com/krishan57gupta/HDS/blob/main/images/R2_score.png?raw=true)
 ### Clusters with Rsquared
-![Rsquared](https://github.com/krishan57gupta/HDS/blob/main/images/violin.png?raw=true)
+![Rsquared (violin plot)](https://github.com/krishan57gupta/HDS/blob/main/images/violin.png?raw=true)
 ### Phase portrait of genes under homeostasis break down
 ![portrait of rhomeostatis genes](https://github.com/krishan57gupta/HDS/blob/main/images/HDS.png?raw=true)
