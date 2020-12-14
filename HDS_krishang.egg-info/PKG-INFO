@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: HDS-krishang
-Version: 0.0.24
+Version: 0.0.25
 Summary: Decline in transcriptional homeostasis defines aging
 Home-page: https://github.com/krishan5gupta/HDS
 Author: Krishan Gupta, Sidrah Maryam
@@ -30,17 +30,17 @@ Description: # HDS Package
         	pip install -i https://test.pypi.org/simple/ HDS-krishang
         
         ## How to make loom files from fastq files?
-        1. Download fastq files from the link given below:
+        1. Download fastq files from the link given below (or any other link):
            
         	https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-6687/samples/
            
-        2. For 10x fastq files, use the 'cellranger count' command to generate bam file.
+        2. For 10x fastq files, use the 'cellranger count' command to generate bam files.
            
         	For example: 
            	
         	cellranger count --id=$sample --transcriptome=$transcriptome --fastqs=/sample.fastqs --sample=$sample --expect-cells=8000 --localcores=12
            	
-        	Download transcriptome from the link given below:
+        	FYI: Download transcriptome from the link given below:
         
         	https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest
         
@@ -84,34 +84,36 @@ Description: # HDS Package
         
            HDS("/home/krishan/loom/abc.loom")
         
-        2. Use 'clusters' parameter to pass cell's clusters if you have. By default  HDS uses 'leiden' method with resolution = 1, inbuilt in scanpy package. Note: clusters labels should be in the same order as barcode in the loom file.
+        2. Use 'clusters' parameter to pass cluster identity of cells if you have. Otherwise, HDS by default uses 'leiden' method with resolution = 1, inbuilt in scanpy package. Note: clusters labels should be in the same order as barcode in the loom file.
         
         	For example:
            	
         	HDS(path1="path of loom file", clusters=[1,2,1,2,3,4,5])
         
-        3. Use 'per' parameter to filter-out top per percentage genes in each cluster, for ploting violin plot.
+        3. Use 'per' parameter to specify the X percentile genes with top HDS score. This could be important since HDS can return large negative valuesthereby distorting the overall distribution plots involving HDS scores.
         
-        4. Use 'genes' parameter to pass speific genes.
+        4. Use 'genes' parameter to pass speific genes for which you want to generate the phase portraits.
            
         	For example:
            
-        	HDS(path1="path of loom file", genes=['Fos','Fosl1'])
+        	HDS(path1="path of loom file", genes=['GENE1','GENE2'])
         
-        5. For other parameters default values are:
+        5. Notably default scanpy parameters are (you can change it):
            
         	min_genes=200, min_cells=3, n_genes_by_counts=2500, pct_counts_mt=5
         
-        6. We have created a [google colab](https://colab.research.google.com/drive/1stwD9-uWoQIkGtEA0gLke2iq8Ioee7J4?usp=sharing) with the code and loom file. Link is given below:
+        	To understand the relevance of these parameters check out:  
+        	
+        6. We have created a [Google colab notebook](https://colab.research.google.com/drive/1stwD9-uWoQIkGtEA0gLke2iq8Ioee7J4?usp=sharing) with the code and loom file. Link is given below:
            
         	https://drive.google.com/drive/folders/1Pq9IsjnCYaJngU8WQ0E1RjIqA9f-j3lY?usp=sharing
            
         ## Output?
-        ### HDS function will return a pandas data frame cantaining Rsquared score of genes for all clusters.
+        ### HDS function will return a pandas data frame cantaining HDS scores of genes across all clusters.
         ![Rsquared (pandas data frame)](https://github.com/krishan57gupta/HDS/blob/main/images/R2_score.png?raw=true)
-        ### Clusters with Rsquared
+        ### HDS score distribution for each supplied cluster
         ![Rsquared (violin plot)](https://github.com/krishan57gupta/HDS/blob/main/images/violin.png?raw=true)
-        ### Phase portrait of genes under homeostasis break down
+        ### Example phase portraits of genes under homeostasis breakdown
         ![portrait of rhomeostatis genes](https://github.com/krishan57gupta/HDS/blob/main/images/HDS.png?raw=true)
         
 Platform: UNKNOWN
