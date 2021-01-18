@@ -1,9 +1,9 @@
 Metadata-Version: 2.1
 Name: HDS-krishang
-Version: 0.0.25
+Version: 0.0.32
 Summary: Decline in transcriptional homeostasis defines aging
-Home-page: https://github.com/krishan5gupta/HDS
-Author: Krishan Gupta, Sidrah Maryam
+Home-page: https://github.com/krishan57gupta/HDS
+Author: Krishan Gupta, Debarka Sengupta
 Author-email: krishang@iiitd.ac.in
 License: UNKNOWN
 Description: # HDS Package
@@ -15,7 +15,7 @@ Description: # HDS Package
         ## How to install?
         1. These are are required packages: 
            
-        	scipy, numpy, pandas, velocyto, scanpy, anndata, matplotlib, seaborn matplotlib_venn, leidenalg and scikit-learn
+        	scipy, numpy, pandas, velocyto, scanpy, anndata, matplotlib, seaborn, matplotlib_venn, leidenalg and scikit-learn
         
         2. To install these packages use below command
            	

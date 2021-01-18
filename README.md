@@ -7,7 +7,7 @@ Age-dependent dysregulation of transcription regulatory machinery triggers modul
 ## How to install?
 1. These are are required packages: 
    
-	scipy, numpy, pandas, velocyto, scanpy, anndata, matplotlib, seaborn matplotlib_venn, leidenalg and scikit-learn
+	scipy, numpy, pandas, velocyto, scanpy, anndata, matplotlib, seaborn, matplotlib_venn, leidenalg and scikit-learn
 
 2. To install these packages use below command
    	

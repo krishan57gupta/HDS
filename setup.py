@@ -5,14 +5,15 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="HDS-krishang", # Replace with your own username
-    version="0.0.25",
-    author="Krishan Gupta, Sidrah Maryam",
+    version="0.0.32",
+    author="Krishan Gupta, Debarka Sengupta",
     author_email="krishang@iiitd.ac.in",
     description="Decline in transcriptional homeostasis defines aging",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/krishan5gupta/HDS",
+    url="https://github.com/krishan57gupta/HDS",
     packages=setuptools.find_packages(),
+    install_requires=[],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
